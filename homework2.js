@@ -10,24 +10,24 @@ const inventors=[
 
 
 //return all array items
-exports.getAll = function () { 
+exports.getAll = () => { 
     return inventors; 
+   
 }; 
 
 
 
 //return single item in array
-exports.get = function(get){ 
-    return inventors.find(word =>'first'); 
+
+exports.get = (first) => { 
+    console.log(first);
+    return inventors.find((inventors) => { return inventors.first == first}); 
 }; 
 
 
 
-//remove item from bottom of array. 
-exports.delete = () => { 
-    return this.splice();
+exports.remove = function (investors){ 
+    return false; 
 }
-
-
 
 
