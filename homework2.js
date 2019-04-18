@@ -20,8 +20,15 @@ exports.getAll = () => {
 //return single item in array
 
 exports.get = (first) => { 
-    console.log(first);
-    return inventors.find((inventors) => { return inventors.first == first}); 
+    //test code
+
+    let data = inventors.find((first) => {
+        console.log(inventors[0].first);
+        return inventors.first.toLowercase() === first;
+    });
+    console.log(data);
+    //end test code
+    //return inventors.find((inventors) => { return inventors.first == first}); 
 }; 
 
 
