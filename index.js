@@ -9,7 +9,7 @@ http.createServer((req,res) => {
     let query = qs.parse(url[1]); 
     
 
-
+console.log(path);
   switch(path) {  
   
 
@@ -48,7 +48,8 @@ http.createServer((req,res) => {
 
 
 //case/break for removeItem() 
-      case '/removeItem': 
+      case '/removeitem': 
+      console.log(query.first)
       let rid = invent.removeItem(query.first); 
 
       res.writeHead(200, { 'Content-Type': 'text/plain'}); 

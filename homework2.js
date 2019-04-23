@@ -46,4 +46,4 @@ exports.removeItem = (first) => {
     // return inventors.filter(inventors => ( inventors.first !== 'Albert'))
      }; 
    
-console.log(this.removeItem('Albert'));
+//console.log(this.removeItem('Albert'));
