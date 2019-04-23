@@ -1,24 +1,17 @@
 const http = require("http"); 
-const inventors = require('./homework2'); 
+const invent = require('./homework2.js'); 
 const fs = require("fs"); 
 const qs= require("querystring"); 
 
 http.createServer((req,res) => { 
- 
-  //console.log(inventors);
-  
-  const url = req.url.toLowerCase(). split("?"); 
-    let path = url[0]; 
+  const url = req.url.split("?"); 
+    let path = url[0].toLowerCase(); 
     let query = qs.parse(url[1]); 
     
 
 
   switch(path) {  
   
-    
-
-
-
 
     case '/':
      // res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -34,31 +27,36 @@ http.createServer((req,res) => {
     case '/about':
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end('about.html');
-      break;
-
-
-
-      case '/get': 
-      let found = inventors.get(query.first); 
-      //console.log( path);
-     // console.log(query);
-     console.log(found); 
-      res.writeHead(200, { 'Content-Type': 'text/plain'}); 
-      let results = (found) ? JSON.stringify(found): "notfound"; 
-      res.end('Results for ' + query.first + "\n" + results) ; 
       break; 
 
-     
-      
-      case '/getAll':
-      let getAll = inventors.getAll(); 
-      console.log(getAll);
+    //case/break for getAll() 
+    case '/getall': 
+    res.end(JSON.stringify(invent.getAll()));
+    break; 
+
+   
+//case/break for get() 
+      case '/get': 
+      let found = invent.get(query.first); 
+    
       res.writeHead(200, { 'Content-Type': 'text/plain'}); 
-      let results1 = (getAll) ? JSON.stringify(getAll): "notfound"; 
-      res.end('Results for ' + req.query.inventors + "\n" + results1) ; 
-      break; ;
+      let results = (found) ? JSON.stringify(found): "notfound"; 
+      res.end( results) ; 
+      break; 
+
+
+
+
+//case/break for removeItem() 
+      case '/removeItem': 
+      let rid = invent.removeItem(query.first); 
+
+      res.writeHead(200, { 'Content-Type': 'text/plain'}); 
+      let itemDelete = (rid) ? JSON.stringify(rid): "notfound"; 
+      res.end(itemDelete) ; 
+      break; 
+
       
-     
 
     default:
       res.writeHead(404, {'Content-Type': 'text/plain'});
@@ -69,3 +67,13 @@ http.createServer((req,res) => {
 
 
 
+
+
+
+/* case '/get': 
+    let found = invent.get(query.inventors); 
+    res.writeHead(200, { 'Content-Type': 'text/plain'}); 
+    let results = (found)? JSON>stringify(found):'not found'; 
+    res.end(results);
+    break; 
+ */

@@ -1,4 +1,4 @@
-const inventors=[
+let inventors=[
     { first: 'Albert', last: 'Einstein', year: 1879, sex: 'male' },
     { first: 'Isaac', last: 'Newton', year: 1643, sex: 'male' },
     { first: 'Galileo', last: 'Galilei', year: 1564, sex: 'male' },
@@ -11,30 +11,39 @@ const inventors=[
 
 //return all array items
 exports.getAll = () => { 
-    return inventors; 
+
+    return inventors;
+    
+    
    
 }; 
 
 
 
+
 //return single item in array
-
 exports.get = (first) => { 
-    //test code
+       // console.log(first);
 
-    let data = inventors.find((first) => {
-        console.log(inventors[0].first);
-        return inventors.first.toLowercase() === first;
-    });
-    console.log(data);
-    //end test code
-    //return inventors.find((inventors) => { return inventors.first == first}); 
-}; 
+        return inventors.find((item) => { 
+            return item.first.toLowerCase() === first; 
 
-
-
-exports.remove = function (investors){ 
-    return false; 
-}
+        }); 
+    
+   // console.log(found);
+    };
+   
+console.log(this.get('max'));
 
 
+//deleting a single item from array, Return new array 
+exports.removeItem = (first) => { 
+        return inventors.filter((item) => { 
+            return item.first.toLowerCase() !== first.toLowerCase();
+        });
+        
+  
+    // return inventors.filter(inventors => ( inventors.first !== 'Albert'))
+     }; 
+   
+console.log(this.removeItem('Albert'));
