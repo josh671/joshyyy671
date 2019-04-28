@@ -13,9 +13,6 @@ let inventors=[
 exports.getAll = () => { 
 
     return inventors;
-    
-    
-   
 }; 
 
 
@@ -23,14 +20,12 @@ exports.getAll = () => {
 
 //return single item in array
 exports.get = (first) => { 
-       // console.log(first);
 
         return inventors.find((item) => { 
             return item.first.toLowerCase() === first; 
 
         }); 
     
-   // console.log(found);
     };
    
 console.log(this.get('max'));
@@ -41,9 +36,14 @@ exports.removeItem = (first) => {
         return inventors.filter((item) => { 
             return item.first.toLowerCase() !== first.toLowerCase();
         });
-        
-  
-    // return inventors.filter(inventors => ( inventors.first !== 'Albert'))
      }; 
    
-//console.log(this.removeItem('Albert'));
+//function that matches input value in home.html form 
+exports.myFunction = (first) => { 
+    let firstName = document.getElementById('inventorFirstName');
+    return inventors.filter((item)=>{  
+        return item.first.toLocaleLowerCase() === first.toLocaleLowerCase();
+
+    });
+
+};
