@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <a href="/">Home</a>
+{{#if result}}
+    <h2>{{title}} details</h2>
+    <li>First {{result.first}}</li>
+    <li>Last: {{result.last}}</li>
+    <li>Year Born: {{result.year}}</li>
+    <li>sex: {{result.sex}}</li>
+    
+    
+    <p>
+    <a href="/delete?first={{result.first}}">Delete</a>
+    
+  
+  
+  </p>
+{{else}}
+        <h2>{{title}} not found</h2>
+{{/if}}
+
+    </body>
+</html> 

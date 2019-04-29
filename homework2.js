@@ -22,7 +22,7 @@ exports.getAll = () => {
 exports.get = (first) => { 
 
         return inventors.find((item) => { 
-            return item.first.toLowerCase() === first; 
+            return item.first.toLowerCase() === first.toLowerCase(); 
 
         }); 
     
