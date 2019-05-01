@@ -37,16 +37,18 @@ console.log(this.get('max'));
 
 exports.delete = (first) =>{ 
     let oldLength = inventors.length; 
-    let newLength = inventors.filter((item)=>{ 
+    var newInventors = inventors.filter((item)=>{ 
         return item.first !== first;
     }); 
-    newInventors = inventors;
+    inventors = newInventors; 
     return { deleted: first, total: inventors.length};
 };
-console.log(this.delete("Max"));
+
+
+
 
 exports.removeItem = (first) => { 
-    console.log(first);
+    
         return inventors.filter((item) => { 
             return item.first.toLowerCase() !== first.toLowerCase();
         });
