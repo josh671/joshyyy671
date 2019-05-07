@@ -44,6 +44,8 @@ exports.delete = (first) =>{
     return { deleted: first, total: inventors.length};
 };
 
+
+
 exports.add = (newInventor) => { 
     let oldArray = inventors.length; 
     let found = this.get(newInventor.first.toLowerCase()); 
