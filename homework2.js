@@ -28,7 +28,7 @@ exports.get = (first) => {
     
     };
    
-console.log(this.get('max'));
+
 
 
 //deleting a single item from array, Return new array 
@@ -38,13 +38,18 @@ console.log(this.get('max'));
 exports.delete = (first) =>{ 
     let oldLength = inventors.length; 
     var newArray = inventors.filter((item)=>{ 
-        return item.first !== first;
+        return item.first.toLowerCase() !== first.toLowerCase();
     }); 
     inventors = newArray;
     return { deleted: first, total: inventors.length};
 };
 
-
-
-
+exports.add = (newInventor) => { 
+    let oldArray = inventors.length; 
+    let found = this.get(newInventor.first.toLowerCase()); 
+        if (!found) { 
+            inventors.push(newInventor);
+        }
+        return {added: oldArray !== inventors.length, total: inventors.length };
+} 
 
