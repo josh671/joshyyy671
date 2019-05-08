@@ -29,10 +29,6 @@ exports.get = (first) => {
     };
    
 
-
-
-//deleting a single item from array, Return new array 
-
 //change filter method to delete mehtod 
 
 exports.delete = (first) =>{ 
@@ -43,7 +39,6 @@ exports.delete = (first) =>{
     inventors = newArray;
     return { deleted: first, total: inventors.length};
 };
-
 
 
 exports.add = (newInventor) => { 

@@ -35,12 +35,12 @@ describe("inventor add module", () => {
 //module for delete method////////////////////////////
 describe("inventor delete module", () => {
   it("deletes requested inventor", () => {
-    let result = getInventor.delete("Max");
-    expect(result.deleted , result.total).to.be.true
+    let result = getInventor.delete("max");
+    expect(result.delete).to.be.true;
   });
   it("fails w/ invalid inventor", () => {
     let result = getInventor.delete("fake");
-    expect(result.deleted, result.total).to.be.false;
+    expect(result.delete).to.be.undefined;
   });
  }); 
 
