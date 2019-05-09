@@ -36,8 +36,9 @@ exports.delete = (first) =>{
     var newArray = inventors.filter((item)=>{ 
         return item.first.toLowerCase() !== first.toLowerCase();
     }); 
+    let deleted = (newArray.length != inventors.length);
     inventors = newArray;
-    return { deleted: first, total: inventors.length};
+    return { deleted: deleted, total: inventors.length};
 };
 
 

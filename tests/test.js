@@ -1,3 +1,4 @@
+'use strict'
 const expect = require("chai").expect;
 
 const getInventor = require("../homework2");
@@ -36,12 +37,10 @@ describe("inventor add module", () => {
 describe("inventor delete module", () => {
   it("deletes requested inventor", () => {
     let result = getInventor.delete("max");
-    expect(result.delete).to.be.true;
+    expect(result.deleted).to.be.true;
   });
   it("fails w/ invalid inventor", () => {
     let result = getInventor.delete("fake");
-    expect(result.delete).to.be.undefined;
+    expect(result.deleted).to.be.false;
   });
  }); 
-
-
