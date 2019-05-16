@@ -2,7 +2,8 @@
 const express = require ("express");
 const bodyParser = require('body-parser'); 
 const app = express();
-const invent = require('./homework2.js'); 
+//const invent = require('./homework2.js'); 
+const inventDB = require('./models/inventor');
 
 
 
@@ -21,27 +22,54 @@ app.get('/', (req, res) => {
    });
 
 
+  //getAll/////////////////////////////////////////////////////
  app.get('/getAll',( req , res) => { 
     res.end(JSON.stringify(invent.getAll())); 
 
  });
 
- app.post('/get', function(req,res){
 
- 
-  var found = invent.get(req.body.inventorFirst);
-  res.render("detail", {title: req.body.inventorFirst, result: found});
+ //get post method with mongodb//////////////////////////////////////////////////////////////////////////////////////
+app.get('/get', (req,res,next)=>{
+  console.log(req.body.inventorFirst);
+  inventDB.findOne({'first':req.body.inventorFirst} ,(err,found)=>{ 
+    if(err) return next(err); 
+    res.type('text/html');
+    res.render('detail', {result:found})
+  });
 });
 
- 
 
+ app.post('/detail', (req, res, next)=> { 
+  inventDB.findOne({'first' :req.body.inventorFirst}).then((found)=>{
+    console.log(found); 
+    res.render("detail", { result:found});
+  }).catch((err) =>{ 
+    return next (err);
+  });
+});
 
- app.get('/delete', (req,res)=>{
+  
+ /*app.post('/get', function(req,res){
+  var found = invent.get(req.body.inventorFirst);
+  res.render("detail", {title: req.body.inventorFirst, result: found});
+})*/
+
+ //////////////////////////////////////////////////////////////
+
+//DELETE METHOD////////////DELETE METHOD//////////
+app.get('/delete', (req, res, ) => { 
+inventDB.deleteOne({'first': req.query.first}).then((result)=>{
+  console.log(result);
+  res.render("delete", {first: req.query.first, deleted: result.deleteCount})
+})
+});
+/* app.get('/delete', (req,res)=>{
   console.log(req.query);
   let result = invent.delete(req.query.first); // delete book object
-  console.log(result); 
+ // console.log(result); 
   res.render('delete', {title: req.body.first, result: result});
-});  
+}); */
 
 
    // send plain text response
