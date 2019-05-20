@@ -3,9 +3,9 @@
         <a href="/">Home</a>
 
 
-{{#if deleted > 0}}
+{{#if deleted}}
     <h2>{{first}} deleted</h2>
-    remaining total: {{total}}
+    remaining total: {{deleted}}
 {{else}}
     <h2>{{first}} not found</h2>
 {{/if}}

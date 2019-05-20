@@ -23,13 +23,25 @@ app.get('/', (req, res) => {
 
 
   //getAll/////////////////////////////////////////////////////
- app.get('/getAll',( req , res) => { 
+app.get('/getAll',(req,res)=>{
+  inventDB.find({},(err, items)=>{
+    if (err) return next (err);
+    console.log(items);
+  res.end(JSON.stringify(items));
+
+  })
+})
+
+
+
+
+ /*app.get('/getAll',( req , res) => { 
     res.end(JSON.stringify(invent.getAll())); 
 
- });
+ });*/
 
 
- //get post method with mongodb//////////////////////////////////////////////////////////////////////////////////////
+ //GET() post method with mongodb/////////////////////////GET()///////////////////////////////////////////////////////////
 app.get('/get', (req,res,next)=>{
   console.log(req.body.inventorFirst);
   inventDB.findOne({'first':req.body.inventorFirst} ,(err,found)=>{ 
@@ -60,10 +72,14 @@ app.get('/get', (req,res,next)=>{
 //DELETE METHOD////////////DELETE METHOD//////////
 app.get('/delete', (req, res, ) => { 
 inventDB.deleteOne({'first': req.query.first}).then((result)=>{
-  console.log(result);
-  res.render("delete", {first: req.query.first, deleted: result.deleteCount})
+  //console.log(result);
+  res.render("delete", {first: req.query.first, deleted: result})
 })
 });
+  //result.deleteCoundresult.deleteCount undefined;
+  //console.log(req.query.first); 
+ 
+
 /* app.get('/delete', (req,res)=>{
   console.log(req.query);
   let result = invent.delete(req.query.first); // delete book object
