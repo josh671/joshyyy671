@@ -2,7 +2,7 @@
     <body>
         <a href="/">Home</a>
 {{#if result}}
-    <h2>search results for {{title}} </h2>
+    <h2>search results for {{result.first}} </h2>
     <li>First {{result.first}}</li>
     <li>Last: {{result.last}}</li>
     <li>Year Born: {{result.year}}</li>
@@ -24,3 +24,14 @@
 
 
 
+app.get('/api/v1/:first', (req, res)=>{ 
+    let firstName = req.param.first;
+    console.log(req.params.first);
+  
+  
+    let info = inventDB.findOne((firstNombre)=>{ 
+      return firstNombre.first == req.params.first;
+    })
+    if (!info) return next(); 
+    res.send(info);
+  })

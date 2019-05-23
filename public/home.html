@@ -26,10 +26,17 @@
 
 
 
+{{#if result}}
+    <h2> {{title}} has been added </h2>
+    <li>First {{title}}</li>
+    <li>Last: {{result.last}}</li>
+    <li>Year Born: {{result.year}}</li>
+    <li>sex: {{result.sex}}</li>
+    
 
-
-
-    </form>
+    {{else}}
+    <h2>{{title}} not found</h2>
+{{/if}}
     
 <p id="pass"></p>    
 

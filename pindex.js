@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 let handlebars =  require("express-handlebars");
 app.engine(".html", handlebars({extname: '.html'}));
 app.set("view engine", ".html");
+app.use('/api', require('cors')()); // set access-control-allow-origin header for api route 
+
 
 // send static file as response
 app.get('/', (req, res) => {
@@ -26,13 +28,23 @@ app.get('/', (req, res) => {
 app.get('/getAll',(req,res)=>{
   inventDB.find({},(err, items)=>{
     if (err) return next (err);
-    console.log(items);
+   console.log(items);
   res.end(JSON.stringify(items));
 
   })
 })
 
-
+//API getAll METHOD//////////////////API getAll METHOD////////////////////////////////
+app.get('/api/v1/inventors',(req, res)=>{
+  inventDB.find({}, (err , inventorsAll) =>{ 
+    if (err) return next(err);
+    if (inventorsAll){
+      res.json(inventorsAll)
+    }else { 
+      res.status(404).send("404 - you dun fucked up again");
+    }
+  })
+})
 
 
  /*app.get('/getAll',( req , res) => { 
@@ -49,6 +61,7 @@ app.get('/get', (req,res,next)=>{
     if(err) return next(err); 
     res.type('text/html');
     res.render('detail', {result:found})
+    
   });
 });
 
@@ -57,12 +70,25 @@ app.get('/get', (req,res,next)=>{
   inventDB.findOne({'first' :req.body.inventorFirst}).then((found)=>{
     //console.log(found); 
     res.render("detail", { result:found});
+
   }).catch((err) =>{ 
     return next (err);
   });
 });
 
+
+//API get METHOD/////////////////////API get METHOD////////////////////////
+app.get('/api/v1/inventor/:first', (req, res)=>{ 
+  let firstName = req.params.first;
+  console.log(firstName);
+ inventDB.find({'first': firstName}, (err, found) => { 
+  res.json(found); 
+})
+})
   
+
+
+
  /*app.post('/get', function(req,res){
   var found = invent.get(req.body.inventorFirst);
   res.render("detail", {title: req.body.inventorFirst, result: found});
@@ -74,7 +100,6 @@ app.get('/get', (req,res,next)=>{
 app.get('/delete', (req, res, ) => { 
 inventDB.deleteOne({'first': req.query.first}).then((result)=>{
   
-  ;
   res.render("delete", {first: req.query.first, deleted:result})
   
 })
@@ -99,7 +124,7 @@ inventDB.updateOne({'first':req.body.addItem}, newItem, {upsert:true}, (err, res
   if(err) return next (err);
   //console.log (result);
   res.type('text/html')
-  res.render("" , {result:result});
+  res.render("../public/home" , {title:req.body.addItem, result:result});
 })
 
 }); 
