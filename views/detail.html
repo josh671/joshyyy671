@@ -24,14 +24,3 @@
 
 
 
-app.get('/api/v1/:first', (req, res)=>{ 
-    let firstName = req.param.first;
-    console.log(req.params.first);
-  
-  
-    let info = inventDB.findOne((firstNombre)=>{ 
-      return firstNombre.first == req.params.first;
-    })
-    if (!info) return next(); 
-    res.send(info);
-  })

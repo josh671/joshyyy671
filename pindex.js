@@ -104,9 +104,17 @@ inventDB.deleteOne({'first': req.query.first}).then((result)=>{
   
 })
 });
-  //result.deleteCoundresult.deleteCount undefined;
-  //console.log(req.query.first); 
- 
+
+///API DELETE METHOD//////////
+app.get('/api/v1/inventor/delete/:first', (req, res)=>{ 
+  let nameFirst = req.params.first; 
+    console.log(nameFirst); 
+    inventDB.deleteOne({'first': nameFirst}, (err, found)=>{ 
+      res.json(nameFirst + " has been deleted");
+    })
+
+})
+  
 
 /* app.get('/delete', (req,res)=>{
   console.log(req.query);
@@ -115,21 +123,34 @@ inventDB.deleteOne({'first': req.query.first}).then((result)=>{
   res.render('delete', {title: req.body.first, result: result});
 }); */
 
+//////////////////add methods//////////////////ADD METHODS
+app.post('/api/v1/inventor/add/', (req, res)=>{ 
+  let newName = {'first':req.body.addItem}; 
+  console.log(newName); 
+console.log(req.body);
+  inventDB.updateOne({'first':req.body.first}, req.body, { upsert:true}, (err, result)=>{ 
+    if (err) return next(err);
+    res.json({first:req.body.first });
+  })
+ 
+})
+
+
 
 app.post('/add', (req,res) => { 
   //console.log(req.body.addItem);
-let newItem = {'first': req.body.addItem}; 
+//let newItem = {'first': req.body.addItem}; 
 
-inventDB.updateOne({'first':req.body.addItem}, newItem, {upsert:true}, (err, result)=>{ 
+inventDB.updateOne({'first':req.body.first}, req.body, {upsert:true}, (err, result)=>{ 
   if(err) return next (err);
   //console.log (result);
   res.type('text/html')
-  res.render("../public/home" , {title:req.body.addItem, result:result});
+  res.render("../public/home" , {title:req.body.first, result:result});
 })
 
 }); 
 
-
+//API ADD METHOD/////////////ADD METHOD
 
 
    // send plain text response
