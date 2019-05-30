@@ -1,5 +1,12 @@
-div { 
+#listOfInventors { 
     width: 550px; 
     height: 400px;
     background-color: aquamarine;
+} 
+
+#formBar { 
+    width: 350px; 
+    height: 400px; 
+    background-color: blueviolet; 
+    
 }

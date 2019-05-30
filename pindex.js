@@ -19,8 +19,11 @@ app.use('/api', require('cors')()); // set access-control-allow-origin header fo
 
 // send static file as response
 app.get('/', (req, res) => {
-    res.type('text/html');
-    res.sendFile(__dirname + '/public/home.html'); 
+ inventDB.find((err,items)=>{ 
+   console.log(items);
+   if(err) return next(err); 
+   res.render('home', { items: JSON.stringify(items)});
+ });
    });
 
 
@@ -29,12 +32,18 @@ app.get('/getAll',(req,res)=>{
   inventDB.find({},(err, items)=>{
     if (err) return next (err);
    console.log(items);
+  
   res.end(JSON.stringify(items));
 
   })
 })
 
-//API getAll METHOD//////////////////API getAll METHOD////////////////////////////////
+//API getAll METHOD//////////////////API getAll METHOD//////////////////////////////// 
+
+
+
+
+
 app.get('/api/v1/inventors',(req, res)=>{
   inventDB.find({}, (err , inventorsAll) =>{ 
     if (err) return next(err);
@@ -54,13 +63,16 @@ app.get('/api/v1/inventors',(req, res)=>{
 
 
  //GET() post method with mongodb/////////////////////////GET()///////////////////////////////////////////////////////////
-app.get('/get', (req,res,next)=>{
+
+
+ app.get('/get', (req,res,next)=>{
   console.log(req.body.inventorFirst);
   
   inventDB.findOne({'first':req.body.inventorFirst} ,(err,found)=>{ 
     if(err) return next(err); 
     res.type('text/html');
     res.render('detail', {result:found})
+
     
   });
 });
@@ -74,7 +86,9 @@ app.get('/get', (req,res,next)=>{
   }).catch((err) =>{ 
     return next (err);
   });
-});
+}); 
+
+
 
 
 //API get METHOD/////////////////////API get METHOD////////////////////////
