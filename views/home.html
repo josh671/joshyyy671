@@ -25,29 +25,34 @@
 
 </form>
 
-<div id="itemList"> 
+<div id="appRoot"></div>
 <script type='text/babel'> 
 
-class inventorListings extends React.Component {
+class InventorListings extends React.Component {
   constructor(props){
   super(props); 
     this.state = { 
       items: {{{items}}}, 
       filter: "", 
       curItem: {},
-
-
     };
-    }
+  }
+render(){ 
+  return(<div> "hello world"</div>); 
 }
-  export default inventorListings;
+
+    
+}
+ 
+ReactDOM.render( 
+  <InventorListings/>, document.getElementById('appRoot')
+);
+
   </script>
 
 
-</div>
-
     
-<p id="pass"></p>    
+  
 
   </body>
 </html>

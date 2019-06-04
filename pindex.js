@@ -20,7 +20,7 @@ app.use('/api', require('cors')()); // set access-control-allow-origin header fo
 // send static file as response
 app.get('/', (req, res) => {
  inventDB.find((err,items)=>{ 
-   console.log(items);
+   //console.log(items);
    if(err) return next(err); 
    res.render('home', { items: JSON.stringify(items)});
  });
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 app.get('/getAll',(req,res)=>{
   inventDB.find({},(err, items)=>{
     if (err) return next (err);
-   console.log(items);
+   //console.log(items);
   
   res.end(JSON.stringify(items));
 
