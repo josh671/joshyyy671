@@ -9,7 +9,27 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
-    
+    <style type="text/css">
+      html {
+        padding: 25px;
+      }
+       .flex-container {
+           display: -webkit-flex;
+           display: flex;
+           width: 600px;
+           background-color: lightgrey;
+       }
+       #item-list {
+           background-color: mintcream;
+           width: 30%;
+           padding: 0px 10px 0px 0px;
+       }
+       #item-details {
+           background-color: #f0e3dc;
+           width: 75%;
+           padding: 10px;
+       }
+     </style>
   </head>
   <body>
     
@@ -36,43 +56,82 @@ class InventorListings extends React.Component {
       filter: "", 
       curItem: {},
     };
-  };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  showDetails(event){ 
+    let inventorDetails = this.state.items.find((items)=>{ 
+      return items._id == event.target.id;
+    });
+    this.setState({curItem:inventorDetails});
+
+  } 
+
+  onChange(event) {
+        var newItem = this.state.curItem;
+        newItem[event.target.name] = event.target.value
+        this.setState({curItem: newItem});
+      }
 
 ///////////////////////////////////////////////////////////////////test
-render(){ 
-  return(<div><ItemList  
-      items={this.state.items}
-      filter = { this.state.filter} 
-      show = { this.showDetails.bind(this)}
-    />
-            
-     </div>); 
-}
+render() {
+        // render app elements
+        return (
+          <div>
+          <Title title="inventors" />
+          <div className="flex-container">
+            <ItemList
+                items={this.state.items} 
+                filter={this.state.filter}
+                show={this.showDetails.bind(this)}
+            />
+            <ItemDetails item={this.state.curItem} change={this.onChange} />
+            </div>
+          </div>
+        );
+      }
+          
+    }
 
     
-}
- const ItemList = ({ items, filter, show}) => { 
-   const itemNodes = items.map((item)=> { 
-     if(!filter || item.name.toLowerCase().includes(filter)){
-       return <li id = {item._id} key = {item._id} onClick = { show}>{item.first}</li> 
-     }
-   })
- });
-
- const ItemDetails = (props) => { 
-   return ( 
-     <span id = "item-details"> 
-      <h2>Details:<h2> 
-        <li>first: { props.item.first}</li>
-        <li>last: { props.item.last}</li>
-
-        <li>year: { props.item.year}</li>
-
-   )
- }
-ReactDOM.render( 
-  <InventorListings/>, document.getElementById('appRoot')
-);
+const Title = ({title}) => {
+      return <div><h2>{title}</h2></div>;
+    }
+    
+    const SearchForm = (props) => {
+      return (
+        <div>
+        <input
+          type="text" placeholder="search"
+          value={props.filter}
+          onChange={props.change}
+        /><p/>
+          </div>
+        );
+    }
+    
+    const ItemList = ({items, filter, show}) => {
+      // generate array of item nodes
+      const itemNodes = items.map((item) => {
+        if (!filter || item.first.toLowerCase().includes(filter)) { 
+          return <li id={item._id} key={item._id} onClick={show}>{item.first}</li>
+        }
+      });
+      return <span id="item-list"><ul>{itemNodes}</ul></span>;
+    }
+    const ItemDetails = (props) => {
+    return (
+      <span id="item-details">
+        <h2>Details:</h2>
+    <li>first: { props.item.first }</li>
+    <li>last: { props.item.last }</li>
+    <li>year: { props.item.year }</li>
+    </span>
+    );
+    }
+    
+    ReactDOM.render(<InventorListings />, document.getElementById('appRoot'));
 
   </script>
 
