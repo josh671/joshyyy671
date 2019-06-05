@@ -36,14 +36,40 @@ class InventorListings extends React.Component {
       filter: "", 
       curItem: {},
     };
-  }
+  };
+
+///////////////////////////////////////////////////////////////////test
 render(){ 
-  return(<div> "hello world"</div>); 
+  return(<div><ItemList  
+      items={this.state.items}
+      filter = { this.state.filter} 
+      show = { this.showDetails.bind(this)}
+    />
+            
+     </div>); 
 }
 
     
 }
- 
+ const ItemList = ({ items, filter, show}) => { 
+   const itemNodes = items.map((item)=> { 
+     if(!filter || item.name.toLowerCase().includes(filter)){
+       return <li id = {item._id} key = {item._id} onClick = { show}>{item.first}</li> 
+     }
+   })
+ });
+
+ const ItemDetails = (props) => { 
+   return ( 
+     <span id = "item-details"> 
+      <h2>Details:<h2> 
+        <li>first: { props.item.first}</li>
+        <li>last: { props.item.last}</li>
+
+        <li>year: { props.item.year}</li>
+
+   )
+ }
 ReactDOM.render( 
   <InventorListings/>, document.getElementById('appRoot')
 );
